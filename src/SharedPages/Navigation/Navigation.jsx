@@ -27,7 +27,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/" className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
+        <Link to="/" className="flex items-center font-semibold text-[#FFFFFF] text-lg hover:text-light-blue-500">
           Home
         </Link>
       </Typography>
@@ -37,7 +37,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
+        <Link className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
           Instructors
         </Link>
       </Typography>
@@ -47,7 +47,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="#" className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
+        <Link href="#" className="flex items-center font-semibold text-[#FFFFFF] text-lg hover:text-light-blue-500">
           Classes
         </Link>
       </Typography>

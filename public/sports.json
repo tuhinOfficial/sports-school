@@ -1,0 +1,122 @@
+[
+    {
+        "img": "football.jpg",
+        "sportsName": "Football",
+        "isPopular": true,
+        "category": "Outdoor",
+        "availableSeats": 5000,
+        "price": 25.99
+      },
+      {
+        "img": "basketball.jpg",
+        "sportsName": "Basketball",
+        "isPopular": true,
+        "category": "Indoor",
+        "availableSeats": 3000,
+        "price": 19.99
+      },
+      {
+        "img": "tennis.jpg",
+        "sportsName": "Tennis",
+        "isPopular": false,
+        "category": "Outdoor",
+        "availableSeats": 1000,
+        "price": 15.99
+      },
+      {
+        "img": "baseball.jpg",
+        "sportsName": "Baseball",
+        "isPopular": true,
+        "category": "Outdoor",
+        "availableSeats": 4000,
+        "price": 22.99
+      },
+      {
+        "img": "swimming.jpg",
+        "sportsName": "Swimming",
+        "isPopular": true,
+        "category": "Water",
+        "availableSeats": 2000,
+        "price": 17.99
+      },
+      {
+        "img": "hockey.jpg",
+        "sportsName": "Hockey",
+        "isPopular": true,
+        "category": "Indoor",
+        "availableSeats": 2500,
+        "price": 18.99
+      },
+      {
+        "img": "cricket.jpg",
+        "sportsName": "Cricket",
+        "isPopular": true,
+        "category": "Outdoor",
+        "availableSeats": 8000,
+        "price": 12.99
+      },
+      {
+        "img": "golf.jpg",
+        "sportsName": "Golf",
+        "isPopular": false,
+        "category": "Outdoor",
+        "availableSeats": 500,
+        "price": 30.99
+      },
+      {
+        "img": "volleyball.jpg",
+        "sportsName": "Volleyball",
+        "isPopular": true,
+        "category": "Indoor",
+        "availableSeats": 1500,
+        "price": 14.99
+      },
+      {
+        "img": "rugby.jpg",
+        "sportsName": "Rugby",
+        "isPopular": false,
+        "category": "Outdoor",
+        "availableSeats": 3000,
+        "price": 20.99
+      },
+      {
+        "img": "badminton.jpg",
+        "sportsName": "Badminton",
+        "isPopular": true,
+        "category": "Indoor",
+        "availableSeats": 2000,
+        "price": 9.99
+      },
+      {
+        "img": "athletics.jpg",
+        "sportsName": "Athletics",
+        "isPopular": true,
+        "category": "Outdoor",
+        "availableSeats": 5000,
+        "price": 15.99
+      },
+      {
+        "img": "cycling.jpg",
+        "sportsName": "Cycling",
+        "isPopular": false,
+        "category": "Outdoor",
+        "availableSeats": 1000,
+        "price": 12.99
+      },
+      {
+        "img": "skiing.jpg",
+        "sportsName": "Skiing",
+        "isPopular": true,
+        "category": "Winter",
+        "availableSeats": 1500,
+        "price": 24.99
+      },
+      {
+        "img": "tabletennis.jpg",
+        "sportsName": "Table Tennis",
+        "isPopular": true,
+        "category": "Indoor",
+        "availableSeats": 1000,
+        "price": 8.99
+      }
+]
