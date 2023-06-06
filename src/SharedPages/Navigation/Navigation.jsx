@@ -27,7 +27,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/" className="flex items-center font-semibold text-orange-500 text-lg">
+        <Link to="/" className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
           Home
         </Link>
       </Typography>
@@ -37,7 +37,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link className="flex items-center font-semibold text-orange-500 text-lg">
+        <Link className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
           Instructors
         </Link>
       </Typography>
@@ -47,7 +47,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="#" className="flex items-center font-semibold text-orange-500 text-lg">
+        <Link href="#" className="flex items-center font-semibold text-orange-500 text-lg hover:text-light-blue-500">
           Classes
         </Link>
       </Typography>
@@ -63,7 +63,7 @@ const Navigation = () => {
             variant="h4"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            <span className="text-light-blue-500 font-semibold">Sports School</span>
+            <Link to="/" className="text-light-blue-500 font-semibold">Sports School</Link>
           </Typography>
           <div className="hidden lg:block">{navList}</div>
           <Button
