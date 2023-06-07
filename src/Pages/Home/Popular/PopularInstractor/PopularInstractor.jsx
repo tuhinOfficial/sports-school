@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Popular = () => {
+const PopularInstractor = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Popular = () => {
     );
 };
 
-export default Popular;
+export default PopularInstractor;

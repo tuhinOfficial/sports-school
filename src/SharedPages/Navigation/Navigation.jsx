@@ -38,7 +38,7 @@ const Navigation = () => {
         className="p-1 font-normal"
       >
         <Link className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
-          Instructors
+          Sports
         </Link>
       </Typography>
       <Typography
@@ -48,7 +48,7 @@ const Navigation = () => {
         className="p-1 font-normal"
       >
         <Link href="#" className="flex items-center font-semibold text-[#FFFFFF] text-lg hover:text-light-blue-500">
-          Classes
+        Instructors
         </Link>
       </Typography>
     </ul>
@@ -58,7 +58,7 @@ const Navigation = () => {
       <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 bg-black rounded-none border-none bg-opacity-90 ">
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
           <Typography
-            as="a"
+            as=""
             href="#"
             variant="h4"
             className="mr-4 cursor-pointer py-1.5 font-medium"
