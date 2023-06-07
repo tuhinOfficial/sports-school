@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 
 const SportsCard = ({ data }) => {
-  console.log(data);
+  // console.log(data);
 
 
   return (

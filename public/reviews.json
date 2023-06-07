@@ -1,0 +1,31 @@
+[
+    {
+      "image": "https://as2.ftcdn.net/v2/jpg/02/92/95/17/1000_F_292951705_zv47wnXkjzHzSouYLpYcNgTOOosDv1ml.jpg",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "rating": 4.5,
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "image": "https://as2.ftcdn.net/v2/jpg/02/92/95/17/1000_F_292951705_zv47wnXkjzHzSouYLpYcNgTOOosDv1ml.jpg",
+      "name": "Alice Smith",
+      "email": "alice@example.com",
+      "rating": 3.8,
+      "text": "Nulla facilisi. Sed at erat sed nibh dictum laoreet."
+    },
+    {
+      "image": "https://as2.ftcdn.net/v2/jpg/02/92/95/17/1000_F_292951705_zv47wnXkjzHzSouYLpYcNgTOOosDv1ml.jpg",
+      "name": "Bob Johnson",
+      "email": "bob@example.com",
+      "rating": 4.2,
+      "text": "Vivamus at fringilla sapien, et ultrices ex."
+    },
+    {
+      "image": "https://as2.ftcdn.net/v2/jpg/02/92/95/17/1000_F_292951705_zv47wnXkjzHzSouYLpYcNgTOOosDv1ml.jpg",
+      "name": "Bob Johnson",
+      "email": "bob@example.com",
+      "rating": 4.2,
+      "text": "Vivamus at fringilla sapien, et ultrices ex."
+    }
+  ]
+  
