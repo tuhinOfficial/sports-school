@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./Registration.css";
-import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
+import { Card, Input, Checkbox, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -14,7 +14,7 @@ const Registration = () => {
   } = useForm();
 
   const [isChecked, setIsChecked] = useState(false);
-  const [error , setError] = useState('');
+  const [error, setError] = useState("");
   console.log(isChecked);
   const checkHandler = () => {
     setIsChecked(!isChecked);
@@ -27,12 +27,12 @@ const Registration = () => {
       return;
     }
 
-    setError('');
+    setError("");
   };
 
   return (
-    <div className="h-screen">
-      <div className="h-screen flex justify-between items-center gap-10 px-40 registration-container">
+
+      <div className="h-full  flex justify-between items-center gap-10 px-40 registration-container">
         <div>
           <Player
             autoplay
@@ -48,7 +48,7 @@ const Registration = () => {
               Sign Up
             </Typography>
             <Typography color="white" className="mt-1 font-normal">
-              Enter your details to Login.
+              Enter your details to Registration.
             </Typography>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -132,13 +132,9 @@ const Registration = () => {
 
               <span className="block mb-4 text-red-600">{error}</span>
 
-              <button
-                className="bg-light-blue-500 text-white px-4 py-3 block w-full cursor-pointer hover:bg-light-blue-300"
-                type="submit"
-                disabled={!isChecked}
-              >
+              <Button disabled={!isChecked} type="submit" className="mt-6" fullWidth>
                 Registration
-              </button>
+              </Button>
 
               <Typography
                 color="white"
@@ -156,7 +152,6 @@ const Registration = () => {
           </Card>
         </div>
       </div>
-    </div>
   );
 };
 
