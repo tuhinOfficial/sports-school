@@ -38,7 +38,7 @@ const Navigation = () => {
         className="p-1 font-normal"
       >
         <Link className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
-          Sports
+          Classes
         </Link>
       </Typography>
       <Typography
@@ -71,7 +71,7 @@ const Navigation = () => {
             size="sm"
             className="hidden lg:inline-block text-lg"
           >
-            <Link>Login</Link>
+            <Link to="/login">Login</Link>
           </Button>
           <IconButton
             variant="text"
@@ -115,7 +115,7 @@ const Navigation = () => {
           <div className="container mx-auto">
             {navList}
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
-              <span>Login</span>
+              <Link to="/login">Login</Link>
             </Button>
           </div>
         </MobileNav>

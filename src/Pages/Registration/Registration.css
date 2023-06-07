@@ -1,0 +1,9 @@
+.registration-container{
+    background-image: linear-gradient(
+      to right,
+      rgba(36, 36, 36, 0.58),
+      rgba(30, 30, 30, 0.817)
+    ),
+    url(../../assets/registration.jpg);
+  background-size: cover;
+}
