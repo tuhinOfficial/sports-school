@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Swal from "sweetalert2";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Prividers/AuthProvider";
@@ -17,24 +17,24 @@ import {
 } from "@material-tailwind/react";
 
 const Registration = () => {
+  const [error, setError] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { createUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm();
-
-  const { createUser } = useContext(AuthContext);
-
-  const [isChecked, setIsChecked] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const [error, setError] = useState("");
   console.log(isChecked);
   const checkHandler = () => {
     setIsChecked(!isChecked);
@@ -53,9 +53,9 @@ const Registration = () => {
         Swal.fire({
           position: "center-center",
           icon: "success",
-          title: "Your work has been saved",
+          title: "Registration Successful",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
 
         reset({
@@ -66,12 +66,12 @@ const Registration = () => {
           confirm: "",
         });
 
-        <Navigate to="/" replace={true} />;
+        navigate("/login");
       })
       .catch((error) => {
-        console.log(error.code)
+        console.log(error.code);
         if (error.code == "auth/email-already-in-use") {
-          setError("Email Already Use Try Another Email")
+          setError("Email Already Use Try Another Email");
         }
       });
     setError("");
