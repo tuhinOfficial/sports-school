@@ -1,6 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
+import Swal from "sweetalert2";
+import { Link, Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../Prividers/AuthProvider";
 import "./Registration.css";
+import { BiHide, BiShow } from "react-icons/bi";
+
 import {
   Card,
   Input,
@@ -8,15 +15,12 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet-async";
-import { AuthContext } from "../../Prividers/AuthProvider";
 
 const Registration = () => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -24,6 +28,12 @@ const Registration = () => {
   const { createUser } = useContext(AuthContext);
 
   const [isChecked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const [error, setError] = useState("");
   console.log(isChecked);
   const checkHandler = () => {
@@ -40,11 +50,31 @@ const Registration = () => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
-        setError("");
-      })
-      .catch((error) => console.log(error.message));
+        Swal.fire({
+          position: "center-center",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
-    
+        reset({
+          name: "",
+          email: "",
+          url: "",
+          password: "",
+          confirm: "",
+        });
+
+        <Navigate to="/" replace={true} />;
+      })
+      .catch((error) => {
+        console.log(error.code)
+        if (error.code == "auth/email-already-in-use") {
+          setError("Email Already Use Try Another Email")
+        }
+      });
+    setError("");
   };
 
   return (
@@ -108,15 +138,38 @@ const Registration = () => {
                 {errors.url && errors.url.type === "required" && (
                   <span className="text-red-500">Url is required</span>
                 )}
-                <Input
-                  className="text-white"
-                  type="password"
-                  size="lg"
-                  label="Password"
-                  {...register("password", { required: true })}
-                />
+                <div className="relative">
+                  <Input
+                    className="text-white"
+                    type={showPassword ? "text" : "password"}
+                    size="lg"
+                    label="Password"
+                    {...register("password", {
+                      required: true,
+                      pattern:
+                        /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/i,
+                    })}
+                  />
+                  <button
+                    onClick={togglePassword}
+                    className="absolute top-[25%] end-2"
+                  >
+                    {showPassword ? (
+                      <BiHide className="text-[22px] text-[#FFFFFF]"></BiHide>
+                    ) : (
+                      <BiShow className="text-[22px] text-[#FFFFFF]"></BiShow>
+                    )}
+                  </button>
+                </div>
+
                 {errors.password && errors.password.type === "required" && (
                   <span className="text-red-500">Password is required</span>
+                )}
+                {errors.password && errors.password.type === "pattern" && (
+                  <span className="text-red-500">
+                    password must have 6 characters and Password Need At least
+                    one capital letter and special characters{" "}
+                  </span>
                 )}
                 <Input
                   className="text-white"
@@ -126,7 +179,9 @@ const Registration = () => {
                   {...register("confirm", { required: true })}
                 />
                 {errors.confirm && errors.confirm.type === "required" && (
-                  <span className="text-red-500">Password is required</span>
+                  <span className="text-red-500">
+                    Confirm Password is required
+                  </span>
                 )}
               </div>
               <Checkbox
