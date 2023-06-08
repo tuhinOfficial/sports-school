@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import "./Registration.css";
-import { Card, Input, Checkbox, Typography, Button } from "@material-tailwind/react";
+import {
+  Card,
+  Input,
+  Checkbox,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../Prividers/AuthProvider";
 
 const Registration = () => {
   const {
@@ -12,6 +20,8 @@ const Registration = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const { createUser } = useContext(AuthContext);
 
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
@@ -27,11 +37,21 @@ const Registration = () => {
       return;
     }
 
-    setError("");
+    createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        setError("");
+      })
+      .catch((error) => console.log(error.message));
+
+    
   };
 
   return (
-
+    <>
+      <Helmet>
+        <title>Sports School | Registration</title>
+      </Helmet>
       <div className="h-full  flex justify-between items-center gap-10 px-40 registration-container">
         <div>
           <Player
@@ -132,7 +152,12 @@ const Registration = () => {
 
               <span className="block mb-4 text-red-600">{error}</span>
 
-              <Button disabled={!isChecked} type="submit" className="mt-6" fullWidth>
+              <Button
+                disabled={!isChecked}
+                type="submit"
+                className="mt-6"
+                fullWidth
+              >
                 Registration
               </Button>
 
@@ -152,6 +177,7 @@ const Registration = () => {
           </Card>
         </div>
       </div>
+    </>
   );
 };
 
