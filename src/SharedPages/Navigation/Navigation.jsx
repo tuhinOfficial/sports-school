@@ -76,7 +76,7 @@ const Navigation = () => {
         className="p-1 font-normal"
       >
         <Link
-          href="#"
+          to="/instructors"
           className="flex items-center font-semibold text-[#FFFFFF] text-lg hover:text-light-blue-500"
         >
           Instructors

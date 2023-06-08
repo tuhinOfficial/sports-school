@@ -5,6 +5,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Classes from "../Pages/Classes/Classes/Classes";
+import Instructors from "../Pages/Instructors/Instructors/Instructors";
 
 const router = createBrowserRouter([
     {
@@ -21,15 +22,20 @@ const router = createBrowserRouter([
                 element:<Login></Login>
             },
             {
-                path:"/registration",
+                path:"registration",
                 element:<Registration></Registration>
             },
             {
-                path:"/classes",
+                path:"classes",
                 element:<Classes></Classes>
+            },
+            {
+                path:"instructors",
+                element: <Instructors></Instructors>
             }
+
         ]
     }
 ])
 
-export default router
+export default router;

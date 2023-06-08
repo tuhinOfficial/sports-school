@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query";
 
 const useInstructor = ()=>{
-    const [instructors , setInstructors] = useState([]);
 
-    useEffect(()=>{
-        fetch('instructors.json')
-        .then(res=> res.json())
-        .then(data=> setInstructors(data))
-    },[])
-    return [instructors]
+    const {data: instructors =[] , refetch} = useQuery({
+        queryKey: ['users' , 'email' , 'name' ,'totalStudent'],
+        queryFn : async ()=> {
+            const res = await fetch(`http://localhost:5000/users`);
+            return res.json();
+        },
+    })
+
+    return [instructors , refetch]
+
 }
 
 export default useInstructor;
