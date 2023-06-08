@@ -31,7 +31,7 @@ const InstructorsCard = ({ data }) => {
             <Typography variant="h4" color="white" className="mb-2">
               {item.name}
             </Typography>
-            <Typography variant="p"  className="mb-2 text-light-blue-500">
+            <Typography variant="paragraph"  className="mb-2 text-light-blue-500">
               {item.email}
             </Typography>
             <Typography color="white" className="font-medium">

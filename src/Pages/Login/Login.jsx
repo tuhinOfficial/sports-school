@@ -15,6 +15,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import GoogleLogin from "../../SharedPages/GoogleLogin/GoogleLogin";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -144,6 +145,8 @@ const Login = () => {
                 </Link>
               </Typography>
             </form>
+
+            <GoogleLogin></GoogleLogin>
           </Card>
         </div>
       </div>

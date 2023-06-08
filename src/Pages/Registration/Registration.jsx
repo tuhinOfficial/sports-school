@@ -15,12 +15,13 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import GoogleLogin from "../../SharedPages/GoogleLogin/GoogleLogin";
 
 const Registration = () => {
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser , updateUserProfile} = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -51,13 +52,13 @@ const Registration = () => {
       .then((result) => {
         console.log(result.user);
 
-        updateUserProfile(data.name , data.url)
-        .then(result =>{
-          console.log(result);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        updateUserProfile(data.name, data.url)
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
         Swal.fire({
           position: "center-center",
@@ -91,7 +92,7 @@ const Registration = () => {
       <Helmet>
         <title>Sports School | Registration</title>
       </Helmet>
-      <div className="h-full  flex justify-between items-center gap-10 px-40 registration-container">
+      <div className="h-full  flex justify-between items-center gap-10 px-40 registration-container py-10">
         <div>
           <Player
             autoplay
@@ -238,6 +239,8 @@ const Registration = () => {
                 </Link>
               </Typography>
             </form>
+
+            <GoogleLogin></GoogleLogin>
           </Card>
         </div>
       </div>
