@@ -1,7 +1,10 @@
+
 import { useEffect, useState } from "react"
 
 const useReview = () => {
-    const [review , setReviews] = useState([])
+    const [review , setReviews] = useState([]);
+
+    
 
     useEffect(()=>{
         fetch('reviews.json')
