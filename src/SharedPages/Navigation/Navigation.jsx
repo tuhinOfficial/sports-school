@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { ChevronDownIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
+import { Select, Option } from "@material-tailwind/react";
+
 import "./Navigation.css";
 import {
   Navbar,
@@ -20,7 +22,7 @@ import { AuthContext } from "../../Prividers/AuthProvider";
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   const [openMenu, setOpenMenu] = React.useState(false);
 
@@ -63,7 +65,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
+        <Link to="/classes" className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
           Classes
         </Link>
       </Typography>
@@ -117,7 +119,7 @@ const Navigation = () => {
                   className="flex items-center px-0 py-0 gap-2 text-base font-normal capitalize tracking-normal border-transparent outline-none"
                 >
                   <Avatar
-                    src="https://as2.ftcdn.net/v2/jpg/02/92/95/17/1000_F_292951705_zv47wnXkjzHzSouYLpYcNgTOOosDv1ml.jpg"
+                    src={user?.photoURL}
                     alt="img"
                   />
                   <ChevronDownIcon

@@ -20,7 +20,7 @@ const Registration = () => {
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser , updateUserProfile} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -50,6 +50,15 @@ const Registration = () => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+
+        updateUserProfile(data.name , data.url)
+        .then(result =>{
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
         Swal.fire({
           position: "center-center",
           icon: "success",
@@ -66,7 +75,7 @@ const Registration = () => {
           confirm: "",
         });
 
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.code);

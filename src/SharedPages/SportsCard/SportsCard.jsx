@@ -41,12 +41,21 @@ const SportsCard = ({ data }) => {
               Total Students : {item.totalStudent}
             </Typography>
             <Typography
+              variant="h6"
+              color="gray"
+              className="font-semibold my-3"
+            >
+              Available Seats : {item.availableSeats}
+            </Typography>
+            <Typography
               variant="small"
               color="gray"
               className="font-normal opacity-75"
             >
               {item.details}
             </Typography>
+            
+            
           </CardBody>
           <CardFooter className="pt-0">
             <Button

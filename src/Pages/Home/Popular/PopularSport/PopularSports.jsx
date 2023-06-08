@@ -12,7 +12,7 @@ const PopularSports = () => {
     
     return (
         <div>
-            <Title headers="Popular Sports"></Title>
+            <Title headers="Popular Classes"></Title>
 
             <div className='grid grid-cols-1 md:grid-cols-3 place-items-center gap-y-10 mb-10'>
                 <SportsCard data={popular}></SportsCard>

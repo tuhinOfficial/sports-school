@@ -112,6 +112,7 @@
   {
     "img": "https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=941&q=80",
     "sportsName": "Athletics",
+    "instructor": "joe Doe",
     "isPopular": true,
     "category": "Outdoor",
     "availableSeats": 5000,
