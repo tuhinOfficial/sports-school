@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Payments", "Delete"];
 
 const UserBookmarks = () => {
-  const [bookmarks] = useBookmark();
+  const [bookmarks, refetch] = useBookmark();
 
   const deleteHandler = (id) => {
     console.log(id);
@@ -22,9 +22,21 @@ const UserBookmarks = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/userbookmarks/${id}`)
-        .then(res => res.json())
-        .then(data=> console.log(data))
+        fetch(`http://localhost:5000/userbookmarks/${id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Successfully delete Your Bookmark", "success");
+            }
+            
+          });
       }
     });
   };
@@ -33,7 +45,6 @@ const UserBookmarks = () => {
 
   return (
     <div>
-      
       <div>
         <Card className="overflow-scroll h-full w-full">
           <table className="w-full min-w-max table-auto text-left">

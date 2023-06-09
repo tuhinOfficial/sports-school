@@ -22,7 +22,7 @@ import { AuthContext } from "../../Prividers/AuthProvider";
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
   const { user, logOut } = useContext(AuthContext);
-  // console.log(user);
+  console.log(user?.photoURL);
 
   const [openMenu, setOpenMenu] = React.useState(false);
 
