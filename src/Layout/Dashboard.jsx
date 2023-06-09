@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Tabs,
   TabsHeader,
@@ -25,6 +26,8 @@ import { BsPersonCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import UserDashboard from "../Pages/UserDashboard/UserDashboard/UserDashboard";
 import UserBookmarks from "../Pages/UserDashboard/UserDashboard/UserBookmarks/UserBookmarks";
+import UserEnrolled from "../Pages/UserDashboard/UserDashboard/UserEnrolled/UserEnrolled";
+import Title from "../SharedPages/Title/Title";
 
 const Dashboard = () => {
   const data = [
@@ -50,8 +53,7 @@ const Dashboard = () => {
       label: "My Enrolled Classes",
       value: "enrolled",
       icon: FcApproval,
-      desc: `We're not always in the position that we want to be at.
-          `,
+      desc: <UserEnrolled></UserEnrolled>,
     },
   ];
 
@@ -64,7 +66,8 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Tabs value="dashboard" orientation="vertical" className="mt-10 items-center">
+
+      <Tabs value="dashboard" orientation="vertical" className="mt-10 items-start">
         <TabsHeader className="w-60">
           {data.map(({ label, value, icon }) => (
             <Tab key={value} value={value} className="place-items-start py-3">

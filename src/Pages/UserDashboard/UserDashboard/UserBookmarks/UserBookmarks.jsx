@@ -1,42 +1,39 @@
 import React from "react";
-import Title from "../../../../SharedPages/Title/Title";
-import { Card, Typography } from "@material-tailwind/react";
+import { Button, Card, Typography } from "@material-tailwind/react";
 import { FaTrashAlt } from "react-icons/fa";
+import { BiDollarCircle } from "react-icons/bi";
+import useBookmark from "../../../../Hooks/useBookmark";
+import Swal from "sweetalert2";
 
-const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Action"];
-
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-  },
-  {
-    name: "Laurent Perrier",
-    job: "Executive",
-    date: "19/09/17",
-  },
-  {
-    name: "Michael Levi",
-    job: "Developer",
-    date: "24/12/08",
-  },
-  {
-    name: "Richard Gran",
-    job: "Manager",
-    date: "04/10/21",
-  },
-];
+const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Payments", "Delete"];
 
 const UserBookmarks = () => {
+  const [bookmarks] = useBookmark();
+
+  const deleteHandler = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/userbookmarks/${id}`)
+        .then(res => res.json())
+        .then(data=> console.log(data))
+      }
+    });
+  };
+
+  // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+
   return (
     <div>
-      <Title headers="My Bookmarked Classes"></Title>
+      
       <div>
         <Card className="overflow-scroll h-full w-full">
           <table className="w-full min-w-max table-auto text-left">
@@ -59,48 +56,70 @@ const UserBookmarks = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, job, date }, index) => (
-                <tr key={name} className="even:bg-blue-gray-50/50">
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {name}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {job}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {date}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      as="a"
-                      href="#"
-                      variant="small"
-                      color="blue"
-                      className="font-medium"
-                    >
-                      <FaTrashAlt className="text-2xl text-red-600"></FaTrashAlt>
-                    </Typography>
-                  </td>
-                </tr>
-              ))}
+              {bookmarks.map(
+                ({ name, className, instructorName, _id }, index) => (
+                  <tr key={index} className="even:bg-blue-gray-50/50">
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {name}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {className}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {instructorName}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        as="a"
+                        href="#"
+                        variant="small"
+                        color="blue"
+                        className="font-medium"
+                      >
+                        <Button
+                          variant="gradient"
+                          className="flex items-center gap-3"
+                        >
+                          <BiDollarCircle></BiDollarCircle>
+                          Payment
+                        </Button>
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        as="a"
+                        href="#"
+                        variant="lead"
+                        color="blue"
+                        className="font-medium"
+                      >
+                        <FaTrashAlt
+                          onClick={() => deleteHandler(_id)}
+                          className="text-2xl text-red-600"
+                        ></FaTrashAlt>
+                      </Typography>
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </Card>

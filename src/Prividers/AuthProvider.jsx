@@ -12,6 +12,7 @@ const AuthProvider = ({children}) => {
 
     const [user , setUser] = useState(null);
     const [loading , setLoading] = useState(true);
+    console.log(user);
 
 
     const createUser = (email , password) =>{
@@ -45,7 +46,7 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         onAuthStateChanged(auth , currentUser=>{
             setUser(currentUser);
-            setLoading(false)
+            setLoading(false);
         })
     },[])
 
