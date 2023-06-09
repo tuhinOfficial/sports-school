@@ -11,18 +11,27 @@ import { AuthContext } from "../../Prividers/AuthProvider";
 import { BsBookmark } from "react-icons/bs";
 import useBookmark from "../../Hooks/useBookmark";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 const SportsCard = ({ data }) => {
   console.log(data);
+
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
   const [, refetch] = useBookmark();
 
   const bookmarkHandler = (item) => {
+
+    if (!user) {
+      return navigate("/login" , {replace: true});
+    }
+
     console.log(item);
     const bookmark = {
-      name: user.displayName,
-      email: user.email,
+      name: user?.displayName,
+      email: user?.email,
       className: item.sportsName,
       price: item.price,
       instructorName: item.instructor,
@@ -40,6 +49,7 @@ const SportsCard = ({ data }) => {
     .then(data=>{
       console.log(data)
       if (data.insertedId) {
+        refetch();
         Swal.fire({
           icon: 'success',
           title: 'Bookmark Added Successful',

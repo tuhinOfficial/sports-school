@@ -3,7 +3,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import Swal from "sweetalert2";
 import "./Login.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Prividers/AuthProvider";
 import { BiHide, BiShow } from "react-icons/bi";
@@ -22,6 +22,11 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { logIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -47,6 +52,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 2000,
         });
+        navigate(from, { replace: true });
 
         reset({
           email: "",
