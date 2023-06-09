@@ -65,7 +65,10 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/classes" className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500">
+        <Link
+          to="/classes"
+          className="flex items-center font-semibold text-lg text-[#FFFFFF] hover:text-light-blue-500"
+        >
           Classes
         </Link>
       </Typography>
@@ -118,10 +121,7 @@ const Navigation = () => {
                   variant="text"
                   className="flex items-center px-0 py-0 gap-2 text-base font-normal capitalize tracking-normal border-transparent outline-none"
                 >
-                  <Avatar
-                    src={user?.photoURL}
-                    alt="img"
-                  />
+                  <Avatar src={user?.photoURL} alt="img" />
                   <ChevronDownIcon
                     strokeWidth={2.5}
                     className={`h-3.5 w-3.5 transition-transform ${
@@ -140,11 +140,17 @@ const Navigation = () => {
                       Profile
                     </Typography>
                   </MenuItem>
-                  <MenuItem>
-                    <Typography variant="h6" color="blue-gray" className="mb-1">
-                      Dashboard
-                    </Typography>
-                  </MenuItem>
+                  <Link to="/dashboard">
+                    <MenuItem>
+                      <Typography
+                        variant="h6"
+                        color="blue-gray"
+                        className="mb-1"
+                      >
+                        Dashboard
+                      </Typography>
+                    </MenuItem>
+                  </Link>
                   <MenuItem onClick={logOutHandler}>
                     <Typography variant="h6" color="blue-gray" className="mb-1">
                       Logout
@@ -154,7 +160,6 @@ const Navigation = () => {
               </MenuList>
             </Menu>
           )}
-
 
           <IconButton
             variant="text"
