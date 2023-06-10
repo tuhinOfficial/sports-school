@@ -9,6 +9,7 @@ const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Payments", "Delete"];
 
 const UserBookmarks = () => {
   const [bookmarks, refetch] = useBookmark();
+  console.log(bookmarks);
 
   const deleteHandler = (id) => {
     console.log(id);

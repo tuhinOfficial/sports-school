@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { IoIosBookmark } from "react-icons/io";
 import { FcApproval } from "react-icons/fc";
@@ -33,6 +33,8 @@ import MyClasses from "../Pages/Instructors/Instructors/MyClasses/MyClasses";
 import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard/AdminDashboard";
 import ManageClasses from "../Pages/AdminDashboard/AdminDashboard/ManageClasses/ManageClasses";
 import ManageUser from "../Pages/AdminDashboard/AdminDashboard/ManageUser/ManageUser";
+import { AuthContext } from "../Prividers/AuthProvider";
+import useUsers from "../Hooks/useUsers";
 
 const Dashboard = () => {
   const userData = [
@@ -96,9 +98,28 @@ const Dashboard = () => {
     },
   ];
 
+  const [data, setData] = useState(userData);
+  const { user } = useContext(AuthContext);
+  const [users] = useUsers();
+
+  useEffect(() => {
+    const loggedEmail = user.email;
+    // console.log(loggedEmail);
+
+    // console.log(users);
+
+    const loggedUser = users.find((obj) => obj.email === loggedEmail);
+    // console.log(loggedUser);
+    if (loggedUser?.role === "instructor") {
+      setData(instructorData);
+    }
+
+    if (loggedUser?.role === "admin") {
+      setData(AdminData);
+    }
+  }, []);
+
   // const data=userData;
-  
-  const data = AdminData;
 
   const labelProps = {
     variant: "small",

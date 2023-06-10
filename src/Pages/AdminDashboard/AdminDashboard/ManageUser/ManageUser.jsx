@@ -1,42 +1,65 @@
 import React from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { Button, Card, Typography } from "@material-tailwind/react";
 import useUsers from "../../../../Hooks/useUsers";
- 
+import Swal from "sweetalert2";
+
 const TABLE_HEAD = ["Name", "Email", "Role", "Action"];
- 
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-  },
-  {
-    name: "Laurent Perrier",
-    job: "Executive",
-    date: "19/09/17",
-  },
-  {
-    name: "Michael Levi",
-    job: "Developer",
-    date: "24/12/08",
-  },
-  {
-    name: "Richard Gran",
-    job: "Manager",
-    date: "04/10/21",
-  },
-];
- 
 
 const ManageUser = () => {
+  const [users, refetch] = useUsers();
+  console.log(users);
 
-    const {users} = useUsers();
-    console.log(users);
+  const makeInstructor = (user) => {
+    Swal.fire({
+      title:"Are you sure Make Instructor?",
+      text: user.email,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/user/instructor/${user?._id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            console.log(data.modifiedCount);
+            if (data.modifiedCount) {
+              Swal.fire("SuccessFully Instructor", "success");
+            }
+          });
+      }
+    });
+  };
+
+  const makeAdmin = (user) => {
+    Swal.fire({
+      title: "Are you sure Make Admin?",
+      text: user.email,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/user/admin/${user?._id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            console.log(data.modifiedCount);
+            if (data.modifiedCount) {
+              Swal.fire("Successfully Admin","success");
+            }
+          });
+      }
+    });
+  };
 
   return (
     <div>
@@ -47,7 +70,7 @@ const ManageUser = () => {
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-center"
                 >
                   <Typography
                     variant="small"
@@ -61,15 +84,15 @@ const ManageUser = () => {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ name, job, date }, index) => (
-              <tr key={name} className="even:bg-blue-gray-50/50">
+            {users.map((user, index) => (
+              <tr key={index} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {name}
+                    {user.name}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -78,7 +101,7 @@ const ManageUser = () => {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {job}
+                    {user.email}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -87,19 +110,32 @@ const ManageUser = () => {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {date}
+                    {user.role? user.role : "User"}
                   </Typography>
                 </td>
                 <td className="p-4">
-                  <Typography
-                    as="a"
-                    href="#"
-                    variant="small"
-                    color="blue"
-                    className="font-medium"
-                  >
-                    Edit
-                  </Typography>
+                  <div className="flex gap-3">
+                    <Button
+                      disabled={
+                        user.role === "instructor" || user.role === "admin"
+                      }
+                      onClick={() => makeInstructor(user)}
+                      variant="gradient"
+                      className="flex items-center gap-3"
+                    >
+                      Make Instructor
+                    </Button>
+                    <Button
+                      disabled={
+                        user.role === "instructor" || user.role === "admin"
+                      }
+                      onClick={()=>makeAdmin(user)}
+                      variant="gradient"
+                      className="flex items-center gap-3"
+                    >
+                      Make Admin
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}

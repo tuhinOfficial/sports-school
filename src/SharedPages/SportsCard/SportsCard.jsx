@@ -32,9 +32,9 @@ const SportsCard = ({ data }) => {
     const bookmark = {
       name: user?.displayName,
       email: user?.email,
-      className: item.sportsName,
+      className: item.className,
       price: item.price,
-      instructorName: item.instructor,
+      instructorName: item.instructorName,
     };
     console.log(bookmark);
 
