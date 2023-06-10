@@ -43,7 +43,7 @@ const Instructors = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-y-5 my-10">
-        <InstructorsCard data={instructors}></InstructorsCard>
+        <InstructorsCard data={users}></InstructorsCard>
       </div>
     </div>
   );

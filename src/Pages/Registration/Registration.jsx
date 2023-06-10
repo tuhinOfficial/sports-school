@@ -16,6 +16,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import GoogleLogin from "../../SharedPages/GoogleLogin/GoogleLogin";
+import { stringify } from "postcss";
 
 const Registration = () => {
   const [error, setError] = useState("");
@@ -36,7 +37,7 @@ const Registration = () => {
     setShowPassword(!showPassword);
   };
 
-  console.log(isChecked);
+  // console.log(isChecked);
   const checkHandler = () => {
     setIsChecked(!isChecked);
   };
@@ -51,11 +52,22 @@ const Registration = () => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        const newUser = {
+          name: data.name,
+          email: data.email,
+        };
+        fetch("http://localhost:5000/users",{
+          method: "POST",
+          headers:{
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser)
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
 
         updateUserProfile(data.name, data.url)
-          .then((result) => {
-            console.log(result);
-          })
+          .then((res) => console.log(res))
           .catch((error) => {
             console.log(error);
           });

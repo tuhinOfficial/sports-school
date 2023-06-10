@@ -14,13 +14,27 @@ const GoogleLogin = () => {
 
   const googleLoginHandler = () => {
     googleLogin()
-    .then(result =>{
-        console.log(result);
+      .then((result) => {
+        const user = result.user;
+        console.log(user.displayName);
+        const newUser = {
+          name: user.displayName,
+          email: user.email,
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
         navigate(from, { replace: true });
-    })
-    .catch(error =>{
+      })
+      .catch((error) => {
         console.log(error);
-    })
+      });
   };
 
   return (

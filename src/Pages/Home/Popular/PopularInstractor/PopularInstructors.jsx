@@ -6,7 +6,7 @@ import useUsers from "../../../../Hooks/useUsers";
 const PopularInstructors = () => {
   const [users] = useUsers();
 
-  const popular = instructors.sort(
+  const popular = users.sort(
     (a, b) => b.numberOfStudent - a.numberOfStudent
   );
 
