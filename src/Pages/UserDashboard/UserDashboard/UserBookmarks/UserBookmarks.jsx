@@ -14,7 +14,7 @@ const UserBookmarks = () => {
     console.log(id);
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "Do You Want to Delete",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -117,10 +117,9 @@ const UserBookmarks = () => {
                     <td className="p-4">
                       <Typography
                         as="a"
-                        href="#"
                         variant="lead"
                         color="blue"
-                        className="font-medium"
+                        className="font-medium cursor-pointer"
                       >
                         <FaTrashAlt
                           onClick={() => deleteHandler(_id)}

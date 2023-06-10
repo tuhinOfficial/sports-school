@@ -1,5 +1,14 @@
 import React from "react";
 
+import { IoIosBookmark } from "react-icons/io";
+import { FcApproval } from "react-icons/fc";
+import { BsPersonCircle } from "react-icons/bs";
+import { MdAddTask } from "react-icons/md";
+import { Link } from "react-router-dom";
+import UserDashboard from "../Pages/UserDashboard/UserDashboard/UserDashboard";
+import UserBookmarks from "../Pages/UserDashboard/UserDashboard/UserBookmarks/UserBookmarks";
+import UserEnrolled from "../Pages/UserDashboard/UserDashboard/UserEnrolled/UserEnrolled";
+import AddClass from "../Pages/instructorDashboard/addClass/addClass";
 import {
   Tabs,
   TabsHeader,
@@ -19,29 +28,19 @@ import {
   PlusIcon,
   HomeIcon,
 } from "@heroicons/react/24/solid";
-
-import { IoIosBookmark } from "react-icons/io";
-import { FcApproval } from "react-icons/fc";
-import { BsPersonCircle } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import UserDashboard from "../Pages/UserDashboard/UserDashboard/UserDashboard";
-import UserBookmarks from "../Pages/UserDashboard/UserDashboard/UserBookmarks/UserBookmarks";
-import UserEnrolled from "../Pages/UserDashboard/UserDashboard/UserEnrolled/UserEnrolled";
-import Title from "../SharedPages/Title/Title";
+import InstructorDashboard from "../Pages/Instructors/Instructors/InstructorDashboard/InstructorDashboard";
+import MyClasses from "../Pages/Instructors/Instructors/MyClasses/MyClasses";
+import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard/AdminDashboard";
+import ManageClasses from "../Pages/AdminDashboard/AdminDashboard/ManageClasses/ManageClasses";
+import ManageUser from "../Pages/AdminDashboard/AdminDashboard/ManageUser/ManageUser";
 
 const Dashboard = () => {
-  const data = [
+  const userData = [
     {
       label: "Dashboard",
       value: "dashboard",
       icon: Square3Stack3DIcon,
-      desc:<UserDashboard></UserDashboard>,
-    },
-    {
-      label: "Profile",
-      value: "profile",
-      icon: UserCircleIcon,
-      desc: `To Do`,
+      desc: <UserDashboard></UserDashboard>,
     },
     {
       label: "Bookmarks Classes",
@@ -56,6 +55,50 @@ const Dashboard = () => {
       desc: <UserEnrolled></UserEnrolled>,
     },
   ];
+  const instructorData = [
+    {
+      label: "Instructor Dashboard",
+      value: "dashboard",
+      icon: Square3Stack3DIcon,
+      desc: <InstructorDashboard></InstructorDashboard>,
+    },
+    {
+      label: "Add A Class",
+      value: "class",
+      icon: MdAddTask,
+      desc: <AddClass></AddClass>,
+    },
+    {
+      label: "My Classes",
+      value: "enrolled",
+      icon: FcApproval,
+      desc: <MyClasses></MyClasses>,
+    },
+  ];
+  const AdminData = [
+    {
+      label: "Admin Dashboard",
+      value: "dashboard",
+      icon: Square3Stack3DIcon,
+      desc: <AdminDashboard></AdminDashboard>,
+    },
+    {
+      label: "Manage Classes",
+      value: "profile",
+      icon: UserCircleIcon,
+      desc: <ManageClasses></ManageClasses>,
+    },
+    {
+      label: "Manage User",
+      value: "class",
+      icon: MdAddTask,
+      desc: <ManageUser></ManageUser>,
+    },
+  ];
+
+  // const data=userData;
+  
+  const data = AdminData;
 
   const labelProps = {
     variant: "small",
@@ -66,8 +109,11 @@ const Dashboard = () => {
 
   return (
     <div>
-
-      <Tabs value="dashboard" orientation="vertical" className="mt-10 items-start">
+      <Tabs
+        value="dashboard"
+        orientation="vertical"
+        className="mt-10 items-start"
+      >
         <TabsHeader className="w-60">
           {data.map(({ label, value, icon }) => (
             <Tab key={value} value={value} className="place-items-start py-3">

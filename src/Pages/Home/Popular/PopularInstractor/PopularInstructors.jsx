@@ -1,10 +1,10 @@
 import React from "react";
 import Title from "../../../../SharedPages/Title/Title";
 import InstructorsCard from "../../../../SharedPages/InstructorsCard/InstructorsCard";
-import useInstructor from "../../../../Hooks/useInstructor";
+import useUsers from "../../../../Hooks/useUsers";
 
 const PopularInstructors = () => {
-  const [instructors] = useInstructor();
+  const [users] = useUsers();
 
   const popular = instructors.sort(
     (a, b) => b.numberOfStudent - a.numberOfStudent

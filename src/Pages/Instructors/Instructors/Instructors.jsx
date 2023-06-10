@@ -1,13 +1,13 @@
 import React from "react";
 import { Select, Option, Input, Button } from "@material-tailwind/react";
-import useInstructor from "../../../Hooks/useInstructor";
 import { Helmet } from "react-helmet-async";
 import Title from "../../../SharedPages/Title/Title";
 import InstructorsCard from "../../../SharedPages/InstructorsCard/InstructorsCard";
+import useUsers from "../../../Hooks/useUsers";
 
 const Instructors = () => {
-  const [instructors] = useInstructor();
-  console.log(instructors);
+  const [users] = useUsers();
+  console.log(users);
 
   const [search, setSearch] = React.useState("");
   const onChange = ({ target }) => setSearch(target.value);

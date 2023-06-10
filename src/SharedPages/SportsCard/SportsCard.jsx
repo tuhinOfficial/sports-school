@@ -70,12 +70,12 @@ const SportsCard = ({ data }) => {
             floated={false}
             className="h-48 rounded-none"
           >
-            <img src={item.img} />
+            <img src={item.classImage} />
           </CardHeader>
           <CardBody>
             <div className="flex items-center justify-between mb-2">
               <Typography color="blue-gray" className="font-semibold">
-                {item.sportsName}
+                {item.className}
               </Typography>
               <Typography
                 color="blue-gray"
@@ -84,22 +84,19 @@ const SportsCard = ({ data }) => {
                 ${item.price} /mo
               </Typography>
             </div>
-            <Typography variant="small" color="gray" className="font-semibold">
-              Total Students : {item.totalStudent}
-            </Typography>
             <Typography
               variant="h6"
               color="gray"
               className="font-semibold my-3"
             >
-              Available Seats : {item.availableSeats}
+              Available Seats : {item.seats}
             </Typography>
             <Typography
-              variant="small"
+              variant="h6"
               color="gray"
-              className="font-normal opacity-75"
+              className="font-semibold"
             >
-              {item.details}
+              Instructor Name : {item.instructorName}
             </Typography>
           </CardBody>
           <CardFooter className="pt-0 flex justify-center">
