@@ -23,8 +23,19 @@ const TABLE_HEAD = [
 ];
 
 const ManageClasses = () => {
-  const [sports] = useSports();
+  const [sports, refetch] = useSports();
   console.log(sports);
+
+  const approvedHandler = (id) => {
+    fetch(`http://localhost:5000/sports/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        refetch()
+        console.log(data.modifiedCount);
+      });
+  };
 
   return (
     <div>
@@ -59,6 +70,8 @@ const ManageClasses = () => {
                     instructorEmail,
                     price,
                     seats,
+                    _id,
+                    status,
                   },
                   index
                 ) => {
@@ -130,6 +143,8 @@ const ManageClasses = () => {
                             <Button
                               variant="gradient"
                               className="flex items-center gap-3"
+                              onClick={() => approvedHandler(_id)}
+                              disabled={status}
                             >
                               <FaCheck></FaCheck> Approved
                             </Button>
@@ -139,15 +154,17 @@ const ManageClasses = () => {
                               variant="gradient"
                               color="red"
                               className="flex items-center gap-3"
+                              disabled={status}
                             >
                               <BsFillXCircleFill></BsFillXCircleFill> Deny
                             </Button>
                           </Tooltip>
-                          <Tooltip content="Deny Class">
+                          <Tooltip content="FeedBack">
                             <Button
                               variant="gradient"
                               color="green"
                               className="flex items-center gap-3"
+                              disabled={status}
                             >
                               <BsFillXCircleFill></BsFillXCircleFill> FeedBack
                             </Button>

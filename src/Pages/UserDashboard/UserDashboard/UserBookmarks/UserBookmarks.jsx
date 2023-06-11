@@ -69,7 +69,7 @@ const UserBookmarks = () => {
             </thead>
             <tbody>
               {bookmarks.map(
-                ({ name, className, instructorName, _id }, index) => (
+                ({  name,className, instructorName, _id }, index) => (
                   <tr key={index} className="even:bg-blue-gray-50/50">
                     <td className="p-4">
                       <Typography

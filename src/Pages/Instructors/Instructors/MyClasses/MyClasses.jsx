@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-
 import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
@@ -80,13 +79,12 @@ const TABLE_ROWS = [
 ];
 
 const MyClasses = () => {
+  const { user } = useContext(AuthContext);
 
-    const {user} = useContext(AuthContext);
+  const [myClass] = useMyClass();
 
-    const [myClass] = useMyClass();
+  console.log(myClass);
 
-console.log(myClass);
-    
   return (
     <div>
       <Card className="h-full w-full">
@@ -120,7 +118,7 @@ console.log(myClass);
                     instructorEmail,
                     price,
                     seats,
-                    status
+                    status,
                   },
                   index
                 ) => {
@@ -172,9 +170,9 @@ console.log(myClass);
                           <Chip
                             size="sm"
                             variant="ghost"
-                            value={status}
+                            value={status?status:"pending"}
                             color={
-                              status === "paid"
+                              status === "approved"
                                 ? "green"
                                 : status === "pending"
                                 ? "amber"

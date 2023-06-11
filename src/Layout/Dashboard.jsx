@@ -21,6 +21,7 @@ import {
   SpeedDialContent,
   SpeedDialAction,
   Typography,
+  Spinner,
 } from "@material-tailwind/react";
 import {
   Square3Stack3DIcon,
@@ -98,26 +99,45 @@ const Dashboard = () => {
     },
   ];
 
-  const [data, setData] = useState(userData);
-  const { user } = useContext(AuthContext);
-  const [users] = useUsers();
+  const [data , setData] = useState([]);
 
+  const {user , loading} = useContext(AuthContext);
+  
+  const [loggedUser , setLoggedUser] = useState(null);
+  console.log(loggedUser);
+
+  if (loading) {
+    return <Spinner />
+  }
+  
+  
   useEffect(() => {
-    const loggedEmail = user.email;
-    // console.log(loggedEmail);
-
-    // console.log(users);
-
-    const loggedUser = users.find((obj) => obj.email === loggedEmail);
-    // console.log(loggedUser);
-    if (loggedUser?.role === "instructor") {
-      setData(instructorData);
-    }
-
     if (loggedUser?.role === "admin") {
       setData(AdminData);
+    } else if (loggedUser?.role === "instructor") {
+      setData(instructorData);
     }
-  }, []);
+    else{
+      setData(userData)
+    }
+  }, [loggedUser]);
+  
+
+  useEffect(() => {
+   
+    fetch(`http://localhost:5000/users/loggedUser?email=${user.email}`,{
+      method: 'GET',
+      headers:{
+        "content-type": "application/json"
+      }
+    })
+    .then(res=>res.json())
+    .then(data=>setLoggedUser(data))
+
+  },[user]);
+  
+  
+ 
 
   // const data=userData;
 
@@ -136,7 +156,7 @@ const Dashboard = () => {
         className="mt-10 items-start"
       >
         <TabsHeader className="w-60">
-          {data.map(({ label, value, icon }) => (
+          {data?.map(({ label, value, icon }) => (
             <Tab key={value} value={value} className="place-items-start py-3">
               <div className="flex items-center gap-2">
                 {React.createElement(icon, { className: "w-5 h-5" })}
