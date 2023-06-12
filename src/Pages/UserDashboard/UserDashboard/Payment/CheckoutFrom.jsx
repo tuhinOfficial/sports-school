@@ -94,6 +94,20 @@ const CheckoutFrom = ({ data }) => {
       .then(data=>{
         console.log(data);
       })
+
+      fetch(`http://localhost:5000/userbookmarks/${data?._id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.deletedCount > 0) {
+              refetch();
+            }
+          });
     }
   };
 
@@ -127,7 +141,7 @@ const CheckoutFrom = ({ data }) => {
       </form>
       {error && <p className="text-red-600 text-center">{error}</p>}
       {tranSectionID && (
-        <span className="bg-green-500">
+        <span className="text-green-500">
           Payment SuccessFul Transaction Id : {tranSectionID}
         </span>
       )}
