@@ -8,6 +8,7 @@ import Classes from "../Pages/Classes/Classes/Classes";
 import Instructors from "../Pages/Instructors/Instructors/Instructors";
 import Dashboard from "../Layout/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import Payment from "../Pages/UserDashboard/UserDashboard/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path:"instructors",
                 element: <Instructors></Instructors>
+            },
+            {
+                path:"payment",
+                element:<Payment></Payment>
             }
 
         ]
@@ -41,8 +46,10 @@ const router = createBrowserRouter([
 
     {
         path:"dashboard",
-        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-    }
+        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement:<ErrorPage></ErrorPage>,
+    },
+    
 ])
 
 export default router;

@@ -35,6 +35,7 @@ const SportsCard = ({ data }) => {
       className: item.className,
       price: item.price,
       instructorName: item.instructorName,
+      instructorEmail: item.instructorEmail
     };
     console.log(bookmark);
 

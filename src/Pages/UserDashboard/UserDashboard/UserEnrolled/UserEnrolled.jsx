@@ -1,42 +1,16 @@
 import React from "react";
 import { Card, Typography } from "@material-tailwind/react";
+import usePayment from "../../../../Hooks/usePayment";
 
-const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Price"];
+const TABLE_HEAD = ["Name", "Email", "Price", "Transaction ID",];
 
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-    price: "19",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-    price: "19",
-  },
-  {
-    name: "Laurent Perrier",
-    job: "Executive",
-    date: "19/09/17",
-    price: "19",
-  },
-  {
-    name: "Michael Levi",
-    job: "Developer",
-    date: "24/12/08",
-    price: "19",
-  },
-  {
-    name: "Richard Gran",
-    job: "Manager",
-    date: "04/10/21",
-    price: "19",
-  },
-];
+
 
 const UserEnrolled = () => {
+
+  const [payments] = usePayment();
+  console.log(payments);
+
   return (
     <div>
       <div>
@@ -61,8 +35,8 @@ const UserEnrolled = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, job, date ,price }, index) => (
-                <tr key={name} className="even:bg-blue-gray-50/50">
+              {payments?.map(({ name, email, price ,tranSectionID}, index) => (
+                <tr key={index} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -78,7 +52,7 @@ const UserEnrolled = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {job}
+                      {email}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -87,17 +61,16 @@ const UserEnrolled = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {date}
+                      {price} $
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
-                      as="h6"
-                      variant="lead"
-                      color="blue"
-                      className="semibold"
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
                     >
-                      $ {price}
+                      {tranSectionID}
                     </Typography>
                   </td>
                 </tr>

@@ -1,11 +1,19 @@
 import React from "react";
-import { Button, Card, Typography } from "@material-tailwind/react";
+import { Button, Card, CardFooter, Typography } from "@material-tailwind/react";
 import { FaTrashAlt } from "react-icons/fa";
 import { BiDollarCircle } from "react-icons/bi";
 import useBookmark from "../../../../Hooks/useBookmark";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
-const TABLE_HEAD = ["Name", "Class Name", "Instructors", "Payments", "Delete"];
+const TABLE_HEAD = [
+  "Name",
+  "Class Name",
+  "Instructors",
+  "Price",
+  "payment",
+  "Delete",
+];
 
 const UserBookmarks = () => {
   const [bookmarks, refetch] = useBookmark();
@@ -34,9 +42,12 @@ const UserBookmarks = () => {
             console.log(data);
             if (data.deletedCount > 0) {
               refetch();
-              Swal.fire("Deleted!", "Successfully delete Your Bookmark", "success");
+              Swal.fire(
+                "Deleted!",
+                "Successfully delete Your Bookmark",
+                "success"
+              );
             }
-            
           });
       }
     });
@@ -68,69 +79,68 @@ const UserBookmarks = () => {
               </tr>
             </thead>
             <tbody>
-              {bookmarks.map(
-                ({  name,className, instructorName, _id }, index) => (
-                  <tr key={index} className="even:bg-blue-gray-50/50">
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {name}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {className}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {instructorName}
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        as="a"
-                        href="#"
-                        variant="small"
-                        color="blue"
-                        className="font-medium"
-                      >
+              {bookmarks.map((item, index) => (
+                <tr key={index} className="even:bg-blue-gray-50/50">
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {item.name}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {item.className}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {item.instructorName}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography variant="h6" className="font-medium">
+                      {item.price} $
+                    </Typography>
+                  </td>
+                  <td>
+                    <div className="flex gap-2">
+                      <Link to="/payment" state={item}>
                         <Button
                           variant="gradient"
                           className="flex items-center gap-3"
                         >
-                          <BiDollarCircle></BiDollarCircle>
+                          <BiDollarCircle className="text-[22px]"></BiDollarCircle>{" "}
                           Payment
                         </Button>
-                      </Typography>
-                    </td>
-                    <td className="p-4">
-                      <Typography
-                        as="a"
-                        variant="lead"
-                        color="blue"
-                        className="font-medium cursor-pointer"
-                      >
-                        <FaTrashAlt
-                          onClick={() => deleteHandler(_id)}
-                          className="text-2xl text-red-600"
-                        ></FaTrashAlt>
-                      </Typography>
-                    </td>
-                  </tr>
-                )
-              )}
+                      </Link>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      as="a"
+                      variant="lead"
+                      color="blue"
+                      className="font-medium cursor-pointer"
+                    >
+                      <FaTrashAlt
+                        onClick={() => deleteHandler(item?._id)}
+                        className="text-2xl text-red-600"
+                      ></FaTrashAlt>
+                    </Typography>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Card>

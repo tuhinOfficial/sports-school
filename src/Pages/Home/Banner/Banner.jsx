@@ -1,13 +1,14 @@
 import React from "react";
-import { Carousel, Typography, Button } from "@material-tailwind/react";
+import { Carousel, Typography, Button, Slider } from "@material-tailwind/react";
 import img1 from "../../../assets/banner/img1.jpg"
 import img2 from "../../../assets/banner/img2.jpg"
 import img3 from "../../../assets/banner/img3.jpg"
+import { Fade, Slide } from "react-awesome-reveal";
 
 const Banner = () => {
   return (
     <div className="h-[540px]">
-      <Carousel autoplay={true} autoplayDelay={3000} loop={true} className="">
+      <Carousel autoplay={true} autoplayDelay={12000} loop={true} className="">
         <div className="relative h-full w-full">
           <img
             src={img1}
@@ -21,14 +22,14 @@ const Banner = () => {
                 color="white"
                 className="mb-4 text-3xl md:text-4xl lg:text-5xl"
               >
-                Learn Sports Beautiful With Us
+                <Slide duration={3000}>Learn Sports Beautiful With Us</Slide>
               </Typography>
               <Typography
                 variant="lead"
                 color="white"
                 className="mb-12 opacity-80"
               >
-                We Have Beautiful Team To BeautyFul Games
+                <Fade delay={1e3} cascade damping={1e-1}>We Have Beautiful Team To BeautyFul Games</Fade>
               </Typography>
               <div className="flex justify-center gap-2">
                 <Button size="lg">
@@ -53,14 +54,14 @@ const Banner = () => {
                 color="white"
                 className="mb-4 text-3xl md:text-4xl lg:text-5xl"
               >
-                Growth Your Skills With Our BeautyFul Trainer
+                <Slide duration={3000}>Growth Your Skills With Our BeautyFul Trainer</Slide>
               </Typography>
               <Typography
                 variant="lead"
                 color="white"
                 className="mb-12 opacity-80"
               >
-                To Growth Your Skills Join With Us . We Support You For Your Development Skills.
+                <Fade delay={1e3} cascade damping={1e-1}>To Growth Your Skills Join With Us . We Support You For Your Development Skills.</Fade>
               </Typography>
               <div className="flex justify-center gap-2">
                 <Button size="lg">
@@ -85,14 +86,14 @@ const Banner = () => {
                 color="white"
                 className="mb-4 text-3xl md:text-4xl lg:text-5xl"
               >
-                Grow Your Skill With BeautyFul Ground 
+                <Slide delay={3000}>Grow Your Skill With BeautyFul Ground</Slide> 
               </Typography>
               <Typography
                 variant="lead"
                 color="white"
                 className="mb-12 opacity-80"
               >
-                We Have Beautiful Ground in Our Own Property to Build Your Skill
+                <Fade delay={1e2} cascade damping={1e-1}>We Have Beautiful Ground in Our Own Property to Build Your Skill</Fade>
               </Typography>
               <div className="flex justify-center gap-2">
                 <Button size="lg">
