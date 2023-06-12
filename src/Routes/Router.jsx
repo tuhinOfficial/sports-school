@@ -9,6 +9,7 @@ import Instructors from "../Pages/Instructors/Instructors/Instructors";
 import Dashboard from "../Layout/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import Payment from "../Pages/UserDashboard/UserDashboard/Payment/Payment";
+import UpdateClasses from "../Pages/Instructors/Instructors/MyClasses/UpdateClasses";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         errorElement:<ErrorPage></ErrorPage>,
     },
+    {
+        path:"updateClass",
+        element:<UpdateClasses></UpdateClasses>
+    }
     
 ])
 

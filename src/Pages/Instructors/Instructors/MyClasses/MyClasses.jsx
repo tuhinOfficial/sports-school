@@ -12,7 +12,7 @@ import {
   Avatar,
   Tooltip,
 } from "@material-tailwind/react";
-
+import { Link } from "react-router-dom";
 
 const TABLE_HEAD = [
   "Image",
@@ -26,9 +26,9 @@ const TABLE_HEAD = [
 ];
 
 const MyClasses = () => {
-  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const [myClass , refetch] = useMyClass();
+  const [myClass, refetch] = useMyClass();
 
   console.log(myClass);
 
@@ -43,20 +43,16 @@ const MyClasses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/sports/${id}`,{
-          method: "Delete"
+        fetch(`http://localhost:5000/sports/${id}`, {
+          method: "Delete",
         })
-        .then(res=>res.json())
-        .then(data=>{
-          if (data.deletedCount > 0) {
-            refetch();
-            Swal.fire(
-              'Deleted!',
-              'Class Deleted Successfully',
-              'success'
-            )
-          }
-        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Class Deleted Successfully", "success");
+            }
+          });
       }
     });
   };
@@ -85,122 +81,113 @@ const MyClasses = () => {
               </tr>
             </thead>
             <tbody>
-              {myClass.map(
-                (
-                  {
-                    classImage,
-                    className,
-                    instructorName,
-                    instructorEmail,
-                    status,
-                    _id,
-                  },
-                  index
-                ) => {
-                  const isLast = index === myClass.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+              {myClass.map((item, index) => {
+                const isLast = index === myClass.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
-                  return (
-                    <tr key={index}>
-                      <td className={classes}>
-                        <div className="">
-                          <Avatar
-                            src={classImage}
-                            size="md"
-                            className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {className}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {instructorName}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {instructorEmail}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            size="sm"
-                            variant="ghost"
-                            value={status ? status : "pending"}
-                            color={
-                              status === "approved"
-                                ? "green"
-                                : status === "pending"
-                                ? "amber"
-                                : "red"
-                            }
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          Added Soon
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          Added Soon
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <div className="flex gap-x-2">
-                          <Tooltip content="Update Class">
+                return (
+                  <tr key={index}>
+                    <td className={classes}>
+                      <div className="">
+                        <Avatar
+                          src={item.classImage}
+                          size="md"
+                          className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                        />
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.className}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.instructorName}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.instructorEmail}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={item.status ? item.status : "pending"}
+                          color={
+                            item.status === "approved"
+                              ? "green"
+                              : item.status === "pending"
+                              ? "amber"
+                              : "red"
+                          }
+                        />
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        Added Soon
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        Added Soon
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex gap-x-2">
+                        <Tooltip content="Update Class">
+                          <Link to="/updateClass" state={item}>
+                            {" "}
                             <Button
                               disabled={
-                                status === "approved" || status === "deny"
+                                item.status === "approved" || item.status === "deny"
                               }
                             >
                               <BsPencilSquare className="text-[18px]"></BsPencilSquare>
                             </Button>
-                          </Tooltip>
-                          <Tooltip content="Delete Class">
-                            <Button
-                            onClick={() =>deleteHandler(_id)}
-                              disabled={
-                                status === "approved" || status === "deny"
-                              }
-                            >
-                              <BsTrash className="text-[18px]"></BsTrash>
-                            </Button>
-                          </Tooltip>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
+                          </Link>
+                        </Tooltip>
+                        <Tooltip content="Delete Class">
+                          <Button
+                            onClick={() => deleteHandler(_id)}
+                            disabled={
+                              item.status === "approved" || item.status === "deny"
+                            }
+                          >
+                            <BsTrash className="text-[18px]"></BsTrash>
+                          </Button>
+                        </Tooltip>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </CardBody>
