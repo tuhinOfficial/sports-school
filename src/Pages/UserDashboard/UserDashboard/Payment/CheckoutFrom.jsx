@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import { Alert, Button } from "@material-tailwind/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Prividers/AuthProvider";
@@ -14,7 +14,7 @@ const CheckoutFrom = ({ data }) => {
 
   // const price = item.price;
   console.log(data);
-  const price= data.price;
+  const price = data.price;
   console.log(typeof price);
 
   useEffect(() => {
@@ -73,41 +73,41 @@ const CheckoutFrom = ({ data }) => {
       const transactionId = paymentIntent.id;
       setTranSectionID(transactionId);
 
-      const payment ={
+      const payment = {
         name: user?.displayName || "anonymous",
         email: user?.email || "anonymous",
-        price:data?.price,
+        price: data?.price,
         instructorEmail: data?.instructorEmail,
         instructorName: data?.instructorName,
-        id:data?._id,
-        tranSectionID:paymentIntent.id
-      }
+        id: data?._id,
+        tranSectionID: paymentIntent.id,
+      };
 
-      fetch(`http://localhost:5000/payment`,{
-        method: 'POST',
-        headers:{
-          "content-type": "application/json"
+      fetch(`http://localhost:5000/payment`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
         },
-        body: JSON.stringify(payment)
+        body: JSON.stringify(payment),
       })
-      .then(res=>res.json())
-      .then(data=>{
-        console.log(data);
-      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
 
       fetch(`http://localhost:5000/userbookmarks/${data?._id}`, {
-          method: "DELETE",
-          headers: {
-            "content-type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if (data.deletedCount > 0) {
-              refetch();
-            }
-          });
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
     }
   };
 
@@ -141,9 +141,12 @@ const CheckoutFrom = ({ data }) => {
       </form>
       {error && <p className="text-red-600 text-center">{error}</p>}
       {tranSectionID && (
-        <span className="text-green-500">
+        <Alert
+          color="green"
+          icon={<InformationCircleIcon strokeWidth={2} className="h-6 w-6" />}
+        >
           Payment SuccessFul Transaction Id : {tranSectionID}
-        </span>
+        </Alert>
       )}
     </div>
   );

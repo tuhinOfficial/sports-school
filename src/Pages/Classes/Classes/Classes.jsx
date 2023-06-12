@@ -11,7 +11,10 @@ const Classes = () => {
 
   const [sports] = useSports();
 
-  //   console.log(sports);
+  const approvedClasses = sports.filter((item)=>item.status === "approved");
+
+
+    console.log(approvedClasses);
 
   return (
     <div>
@@ -55,7 +58,7 @@ const Classes = () => {
       </div>
 
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 place-items-center gap-y-10 mb-10">
-        <SportsCard data={sports}></SportsCard>
+        <SportsCard data={approvedClasses}></SportsCard>
       </div>
     </div>
   );

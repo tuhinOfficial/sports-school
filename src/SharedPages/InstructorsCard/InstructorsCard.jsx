@@ -35,7 +35,7 @@ const InstructorsCard = ({ data }) => {
               {item.email}
             </Typography>
             <Typography color="white" className="font-medium">
-              Trainer
+              Instructor
             </Typography>
           </CardBody>
           <CardFooter className="flex justify-center gap-7 pt-2">

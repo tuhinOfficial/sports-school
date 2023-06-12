@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardFooter, Typography } from "@material-tailwind/react";
+import { Button, Card,Typography } from "@material-tailwind/react";
 import { FaTrashAlt } from "react-icons/fa";
 import { BiDollarCircle } from "react-icons/bi";
 import useBookmark from "../../../../Hooks/useBookmark";

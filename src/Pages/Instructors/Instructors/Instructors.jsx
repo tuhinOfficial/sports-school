@@ -7,7 +7,8 @@ import useUsers from "../../../Hooks/useUsers";
 
 const Instructors = () => {
   const [users] = useUsers();
-  console.log(users);
+  const instructors = users.filter((user)=>user.role === "instructor")
+  console.log(instructors);
 
   const [search, setSearch] = React.useState("");
   const onChange = ({ target }) => setSearch(target.value);
@@ -43,7 +44,7 @@ const Instructors = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-y-5 my-10">
-        <InstructorsCard data={users}></InstructorsCard>
+        <InstructorsCard data={instructors}></InstructorsCard>
       </div>
     </div>
   );

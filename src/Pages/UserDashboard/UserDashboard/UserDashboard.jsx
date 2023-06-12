@@ -1,9 +1,11 @@
 import React from 'react';
 import useBookmark from '../../../Hooks/useBookmark';
+import usePayment from '../../../Hooks/usePayment';
 
 const UserDashboard = () => {
 
     const [bookmarks] = useBookmark();
+    const [payments]= usePayment();
 
     return (
         <div>
@@ -14,10 +16,10 @@ const UserDashboard = () => {
                 </div>
                 <div className='bg-blue-500 py-10 px-10 flex-1'>
                 <h2 className='text-1xl font-semibold text-white'>My Enrolled Classes</h2>
-                    <span className='text-[#FFFFFF] text-2xl'>00</span>
+                    <span className='text-[#FFFFFF] text-2xl'>{payments.length}</span>
                 </div>
                 <div className='bg-light-green-500 py-10 px-10 flex-1'>
-                <h2 className='text-1xl font-semibold text-white'>My Wallet</h2>
+                <h2 className='text-1xl font-semibold text-white'>Total Payment</h2>
                     <span className='text-[#FFFFFF] text-2xl'>00</span>
                 </div>
             </div>

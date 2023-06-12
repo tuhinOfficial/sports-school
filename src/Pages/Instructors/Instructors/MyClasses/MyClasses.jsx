@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
-
-import { PencilIcon } from "@heroicons/react/24/solid";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { AuthContext } from "../../../../Prividers/AuthProvider";
+import useMyClass from "../../../../Hooks/useMyClass";
+import Swal from "sweetalert2";
 import {
   Card,
   Typography,
@@ -8,11 +10,9 @@ import {
   CardBody,
   Chip,
   Avatar,
-  IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import { AuthContext } from "../../../../Prividers/AuthProvider";
-import useMyClass from "../../../../Hooks/useMyClass";
+
 
 const TABLE_HEAD = [
   "Image",
@@ -25,65 +25,41 @@ const TABLE_HEAD = [
   "Action",
 ];
 
-const TABLE_ROWS = [
-  {
-    img: "",
-    name: "Spotify",
-    amount: "$2,500",
-    date: "Wed 3:00pm",
-    status: "paid",
-    account: "visa",
-    accountNumber: "1234",
-    expiry: "06/2026",
-  },
-  {
-    img: "",
-    name: "Amazon",
-    amount: "$5,000",
-    date: "Wed 1:00pm",
-    status: "paid",
-    account: "master-card",
-    accountNumber: "1234",
-    expiry: "06/2026",
-  },
-  {
-    img: "",
-    name: "Pinterest",
-    amount: "$3,400",
-    date: "Mon 7:40pm",
-    status: "pending",
-    account: "master-card",
-    accountNumber: "1234",
-    expiry: "06/2026",
-  },
-  {
-    img: "",
-    name: "Google",
-    amount: "$1,000",
-    date: "Wed 5:00pm",
-    status: "paid",
-    account: "visa",
-    accountNumber: "1234",
-    expiry: "06/2026",
-  },
-  {
-    img: "",
-    name: "netflix",
-    amount: "$14,000",
-    date: "Wed 3:30am",
-    status: "cancelled",
-    account: "visa",
-    accountNumber: "1234",
-    expiry: "06/2026",
-  },
-];
-
 const MyClasses = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
-  const [myClass] = useMyClass();
+  const [myClass , refetch] = useMyClass();
 
   console.log(myClass);
+
+  const deleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/sports/${id}`,{
+          method: "Delete"
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          if (data.deletedCount > 0) {
+            refetch();
+            Swal.fire(
+              'Deleted!',
+              'Class Deleted Successfully',
+              'success'
+            )
+          }
+        })
+      }
+    });
+  };
 
   return (
     <div>
@@ -116,13 +92,12 @@ const MyClasses = () => {
                     className,
                     instructorName,
                     instructorEmail,
-                    price,
-                    seats,
                     status,
+                    _id,
                   },
                   index
                 ) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
+                  const isLast = index === myClass.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
@@ -170,7 +145,7 @@ const MyClasses = () => {
                           <Chip
                             size="sm"
                             variant="ghost"
-                            value={status?status:"pending"}
+                            value={status ? status : "pending"}
                             color={
                               status === "approved"
                                 ? "green"
@@ -200,11 +175,27 @@ const MyClasses = () => {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Tooltip content="Edit Class">
-                          <IconButton variant="text" color="blue-gray">
-                            <PencilIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Tooltip>
+                        <div className="flex gap-x-2">
+                          <Tooltip content="Update Class">
+                            <Button
+                              disabled={
+                                status === "approved" || status === "deny"
+                              }
+                            >
+                              <BsPencilSquare className="text-[18px]"></BsPencilSquare>
+                            </Button>
+                          </Tooltip>
+                          <Tooltip content="Delete Class">
+                            <Button
+                            onClick={() =>deleteHandler(_id)}
+                              disabled={
+                                status === "approved" || status === "deny"
+                              }
+                            >
+                              <BsTrash className="text-[18px]"></BsTrash>
+                            </Button>
+                          </Tooltip>
+                        </div>
                       </td>
                     </tr>
                   );
