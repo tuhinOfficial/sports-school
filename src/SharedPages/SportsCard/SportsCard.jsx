@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -12,20 +12,30 @@ import { BsBookmark } from "react-icons/bs";
 import useBookmark from "../../Hooks/useBookmark";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+import useUsers from "../../Hooks/useUsers";
 
 const SportsCard = ({ data }) => {
   console.log(data);
-
-  const navigate = useNavigate();
-
+  const [loggedUser, setLoggedUser] = useState(null);
+  console.log(loggedUser);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [, refetch] = useBookmark();
 
-  const bookmarkHandler = (item) => {
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/loggedUser?email=${user?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setLoggedUser(data));
+  }, [user]);
 
+  const bookmarkHandler = (item) => {
     if (!user) {
-      return navigate("/login" , {replace: true});
+      return navigate("/login", { replace: true });
     }
 
     console.log(item);
@@ -35,31 +45,32 @@ const SportsCard = ({ data }) => {
       className: item.className,
       price: item.price,
       instructorName: item.instructorName,
-      instructorEmail: item.instructorEmail
+      instructorEmail: item.instructorEmail,
+      id: item._id,
+      seats: item.seats
     };
     console.log(bookmark);
 
-    fetch('http://localhost:5000/userbookmarks',{
-      method: 'POST',
-      headers:{
-        "Content-Type": "application/json"
+    fetch("http://localhost:5000/userbookmarks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(bookmark)
+      body: JSON.stringify(bookmark),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data)
-      if (data.insertedId) {
-        refetch();
-        Swal.fire({
-          icon: 'success',
-          title: 'Bookmark Added Successful',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-    })
-    
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          refetch();
+          Swal.fire({
+            icon: "success",
+            title: "Bookmark Added Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
@@ -92,17 +103,18 @@ const SportsCard = ({ data }) => {
             >
               Available Seats : {item.seats}
             </Typography>
-            <Typography
-              variant="h6"
-              color="gray"
-              className="font-semibold"
-            >
+            <Typography variant="h6" color="gray" className="font-semibold">
               Instructor Name : {item.instructorName}
             </Typography>
           </CardBody>
           <CardFooter className="pt-0 flex justify-center">
-            <Button onClick={()=>bookmarkHandler(item)} className="flex items-center gap-3">
-              <BsBookmark className="font-semibold"></BsBookmark> Add To Bookmark
+            <Button
+              onClick={() => bookmarkHandler(item)}
+              className="flex items-center gap-3"
+              disabled ={loggedUser?.role}
+            >
+              <BsBookmark className="font-semibold"></BsBookmark> Add To
+              Bookmark
             </Button>
           </CardFooter>
         </Card>

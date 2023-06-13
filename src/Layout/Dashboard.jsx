@@ -35,7 +35,6 @@ import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard/AdminDashboar
 import ManageClasses from "../Pages/AdminDashboard/AdminDashboard/ManageClasses/ManageClasses";
 import ManageUser from "../Pages/AdminDashboard/AdminDashboard/ManageUser/ManageUser";
 import { AuthContext } from "../Prividers/AuthProvider";
-import useUsers from "../Hooks/useUsers";
 
 const Dashboard = () => {
   const userData = [

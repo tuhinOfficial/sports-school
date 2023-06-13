@@ -2,6 +2,8 @@ import { Alert, Button } from "@material-tailwind/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Prividers/AuthProvider";
+import useSports from "../../../../Hooks/useSports";
+import { useLocation } from "react-router-dom";
 
 const CheckoutFrom = ({ data }) => {
   const stripe = useStripe();
@@ -12,10 +14,10 @@ const CheckoutFrom = ({ data }) => {
   const [tranSectionID, setTranSectionID] = useState("");
   const { user } = useContext(AuthContext);
 
-  // const price = item.price;
+  const[,refetch] = useSports();
+  // const seats = item.price;
+  // console.log(seats);
   console.log(data);
-  const price = data.price;
-  console.log(typeof price);
 
   useEffect(() => {
     fetch("http://localhost:5000/create-payment-intent", {
@@ -108,6 +110,21 @@ const CheckoutFrom = ({ data }) => {
             refetch();
           }
         });
+
+      fetch(`http://localhost:5000/sports/${data?.id}`, {
+        method: "PUT",
+        headers:{
+          "content-type": "application/json",
+        },
+        body:JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          refetch();
+        }
+      })
     }
   };
 
@@ -143,7 +160,7 @@ const CheckoutFrom = ({ data }) => {
       {tranSectionID && (
         <Alert
           color="green"
-          icon={<InformationCircleIcon strokeWidth={2} className="h-6 w-6" />}
+          
         >
           Payment SuccessFul Transaction Id : {tranSectionID}
         </Alert>

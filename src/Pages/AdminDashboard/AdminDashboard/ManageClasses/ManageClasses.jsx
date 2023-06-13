@@ -11,6 +11,7 @@ import {
 import useSports from "../../../../Hooks/useSports";
 import { FaCheck } from "react-icons/fa";
 import { BsFillXCircleFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 const TABLE_HEAD = [
   "Class Image",
@@ -27,14 +28,57 @@ const ManageClasses = () => {
   console.log(sports);
 
   const approvedHandler = (id) => {
-    fetch(`http://localhost:5000/sports/${id}`, {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You You Approve this Class",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Approved it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/sports/${id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            console.log(data.modifiedCount);
+            if (data.modifiedCount > 0) {
+              Swal.fire("Added", "Class Added Successfully.", "success");
+            }
+          });
+      }
+    });
+  };
+
+  const denyHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You Deny this Class",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Deny it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/sports/deny/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
-        refetch()
+        refetch();
         console.log(data.modifiedCount);
+        if (data.modifiedCount > 0) {
+          Swal.fire("Deny", "Class Deny Successfully", "success");
+        }
       });
+        
+      }
+    });
+    
   };
 
   return (
@@ -151,6 +195,7 @@ const ManageClasses = () => {
                           </Tooltip>
                           <Tooltip content="Deny Class">
                             <Button
+                              onClick={() => denyHandler(_id)}
                               variant="gradient"
                               color="red"
                               className="flex items-center gap-3"

@@ -175,7 +175,7 @@ const MyClasses = () => {
                         </Tooltip>
                         <Tooltip content="Delete Class">
                           <Button
-                            onClick={() => deleteHandler(_id)}
+                            onClick={() => deleteHandler(item?._id)}
                             disabled={
                               item.status === "approved" || item.status === "deny"
                             }
