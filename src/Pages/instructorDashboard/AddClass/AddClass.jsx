@@ -41,6 +41,7 @@ const AddClass = () => {
             instructorEmail: data.email,
             seats: data.seats,
             price: data.price,
+            students:0
           };
           console.log(newItem);
           fetch("http://localhost:5000/sports", {

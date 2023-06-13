@@ -47,7 +47,8 @@ const SportsCard = ({ data }) => {
       instructorName: item.instructorName,
       instructorEmail: item.instructorEmail,
       id: item._id,
-      seats: item.seats
+      seats: item.seats,
+      students: item.students
     };
     console.log(bookmark);
 
