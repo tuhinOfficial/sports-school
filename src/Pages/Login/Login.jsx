@@ -39,11 +39,9 @@ const Login = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
 
     logIn(data.email, data.password)
       .then((result) => {
-        console.log(result);
         Swal.fire({
           position: "center-center",
           icon: "success",
@@ -59,7 +57,6 @@ const Login = () => {
         });
       })
       .catch((error) => {
-        console.log(error.code);
         if (error.code === "auth/user-not-found") {
           setError("User not found");
         }
@@ -75,8 +72,8 @@ const Login = () => {
       <Helmet>
         <title>Sports School | Login</title>
       </Helmet>
-      <div className="h-screen flex justify-between items-center gap-10 px-40 login-container">
-        <div>
+      <div className="h-screen flex flex-col md:flex-row justify-between items-center gap-10 px-40 login-container">
+        <div className="hidden md:block">
           <Player
             autoplay
             loop

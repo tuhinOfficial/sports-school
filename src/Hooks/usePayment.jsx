@@ -9,7 +9,7 @@ const usePayment = () => {
     queryKey: ["myClass", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/payment?email=${user?.email}`
+        `https://sport-school-server-tuhinofficial.vercel.app/payment?email=${user?.email}`
       );
       return res.json();
     },

@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Prividers/AuthProvider";
 import useSports from "../../../../Hooks/useSports";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CheckoutFrom = ({ data }) => {
   const stripe = useStripe();
@@ -13,14 +13,12 @@ const CheckoutFrom = ({ data }) => {
   const [processing, setProcessing] = useState(false);
   const [tranSectionID, setTranSectionID] = useState("");
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const[,refetch] = useSports();
-  // const seats = item.price;
-  // console.log(seats);
-  console.log(data);
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://sport-school-server-tuhinofficial.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -43,7 +41,6 @@ const CheckoutFrom = ({ data }) => {
     if (card === null) {
       return;
     }
-    console.log(card);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -51,10 +48,8 @@ const CheckoutFrom = ({ data }) => {
     });
 
     if (error) {
-      console.log("error creating card", error);
       setError(error.message);
     } else {
-      console.log(paymentMethod);
     }
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -67,9 +62,7 @@ const CheckoutFrom = ({ data }) => {
         },
       });
     if (confirmError) {
-      console.log(confirmError);
     }
-    console.log(paymentIntent);
     setProcessing(true);
     if (paymentIntent.status === "succeeded") {
       const transactionId = paymentIntent.id;
@@ -85,7 +78,7 @@ const CheckoutFrom = ({ data }) => {
         tranSectionID: paymentIntent.id,
       };
 
-      fetch(`http://localhost:5000/payment`, {
+      fetch(`https://sport-school-server-tuhinofficial.vercel.app/payment`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -94,10 +87,9 @@ const CheckoutFrom = ({ data }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
         });
 
-      fetch(`http://localhost:5000/userbookmarks/${data?._id}`, {
+      fetch(`https://sport-school-server-tuhinofficial.vercel.app/userbookmarks/${data?._id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
@@ -105,13 +97,12 @@ const CheckoutFrom = ({ data }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.deletedCount > 0) {
             refetch();
           }
         });
 
-      fetch(`http://localhost:5000/sports/${data?.id}`, {
+      fetch(`https://sport-school-server-tuhinofficial.vercel.app/sports/${data?.id}`, {
         method: "PUT",
         headers:{
           "content-type": "application/json",
@@ -120,12 +111,12 @@ const CheckoutFrom = ({ data }) => {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.modifiedCount > 0) {
           refetch();
         }
       })
 
+      navigate("/dashboard")
 
     }
   };

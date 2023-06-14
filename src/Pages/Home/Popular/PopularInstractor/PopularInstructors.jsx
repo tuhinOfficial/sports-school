@@ -5,20 +5,16 @@ import useUsers from "../../../../Hooks/useUsers";
 
 const PopularInstructors = () => {
   const [users] = useUsers();
+  const instructors = users.filter((user)=>user.role === "instructor")
 
-  const popular = users.sort(
-    (a, b) => b.numberOfStudent - a.numberOfStudent
-  );
-
-  const PopularInstructor = popular.slice(0, 6);
-  console.log(PopularInstructor);
+  const popular = instructors.slice(0, 6);
 
   return (
     <div>
       <Title headers="Popular Instructors"></Title>
 
       <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-y-14 mb-10">
-        <InstructorsCard data={PopularInstructor}></InstructorsCard>
+        <InstructorsCard data={popular}></InstructorsCard>
       </div>
     </div>
   );

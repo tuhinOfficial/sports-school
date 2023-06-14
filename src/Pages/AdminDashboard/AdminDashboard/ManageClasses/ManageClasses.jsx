@@ -25,7 +25,6 @@ const TABLE_HEAD = [
 
 const ManageClasses = () => {
   const [sports, refetch] = useSports();
-  console.log(sports);
 
   const approvedHandler = (id) => {
     Swal.fire({
@@ -38,13 +37,12 @@ const ManageClasses = () => {
       confirmButtonText: "Yes, Approved it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/sports/${id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/sports/${id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())
           .then((data) => {
             refetch();
-            console.log(data.modifiedCount);
             if (data.modifiedCount > 0) {
               Swal.fire("Added", "Class Added Successfully.", "success");
             }
@@ -64,13 +62,12 @@ const ManageClasses = () => {
       confirmButtonText: "Yes, Deny it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/sports/deny/${id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/sports/deny/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
         refetch();
-        console.log(data.modifiedCount);
         if (data.modifiedCount > 0) {
           Swal.fire("Deny", "Class Deny Successfully", "success");
         }

@@ -11,12 +11,10 @@ const Classes = () => {
 
   const [sports] = useSports();
 
-  console.log(sports);
 
   const approvedClasses = sports.filter((item)=>item.status === "approved");
 
 
-    console.log(approvedClasses);
 
   return (
     <div>

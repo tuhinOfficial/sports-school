@@ -8,11 +8,11 @@ import {
   Avatar,
   Button,
 } from "@material-tailwind/react";
+import { Bounce } from "react-awesome-reveal";
 
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const InstructorsCard = ({ data }) => {
-  console.log(data);
 
   return (
     <>
@@ -31,7 +31,10 @@ const InstructorsCard = ({ data }) => {
             <Typography variant="h4" color="white" className="mb-2">
               {item.name}
             </Typography>
-            <Typography variant="paragraph"  className="mb-2 text-light-blue-500">
+            <Typography
+              variant="paragraph"
+              className="mb-2 text-light-blue-500"
+            >
               {item.email}
             </Typography>
             <Typography color="white" className="font-medium">
@@ -67,7 +70,11 @@ const InstructorsCard = ({ data }) => {
           </CardFooter>
 
           <div className="">
-            <Button className="bg-[#B3E5FC] text-[#333333]">See Classes</Button>
+            <Bounce>
+              <Button className="bg-[#B3E5FC] text-[#333333]">
+                See Classes
+              </Button>
+            </Bounce>
           </div>
         </Card>
       ))}

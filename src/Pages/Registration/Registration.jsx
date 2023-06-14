@@ -37,13 +37,11 @@ const Registration = () => {
     setShowPassword(!showPassword);
   };
 
-  // console.log(isChecked);
   const checkHandler = () => {
     setIsChecked(!isChecked);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     if (data.password !== data.confirm) {
       setError("Passwords do not match");
       return;
@@ -51,12 +49,12 @@ const Registration = () => {
 
     createUser(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
         const newUser = {
           name: data.name,
           email: data.email,
+          image:data.url,
         };
-        fetch("http://localhost:5000/users",{
+        fetch("https://sport-school-server-tuhinofficial.vercel.app/users",{
           method: "POST",
           headers:{
             "content-type": "application/json",
@@ -64,12 +62,11 @@ const Registration = () => {
           body: JSON.stringify(newUser)
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
 
         updateUserProfile(data.name, data.url)
-          .then((res) => console.log(res))
+          .then((res) => {})
           .catch((error) => {
-            console.log(error);
+            {};
           });
 
         Swal.fire({
@@ -91,7 +88,6 @@ const Registration = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error.code);
         if (error.code == "auth/email-already-in-use") {
           setError("Email Already Use Try Another Email");
         }
@@ -104,8 +100,8 @@ const Registration = () => {
       <Helmet>
         <title>Sports School | Registration</title>
       </Helmet>
-      <div className="h-full  flex justify-between items-center gap-10 px-40 registration-container py-10">
-        <div>
+      <div className="h-full  flex flex-col md:flex-row justify-between items-center gap-10 px-40 registration-container py-10">
+        <div className="hidden md:block">
           <Player
             autoplay
             loop

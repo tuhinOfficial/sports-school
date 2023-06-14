@@ -5,11 +5,9 @@ import SportsCard from '../../../../SharedPages/SportsCard/SportsCard';
 
 const PopularSports = () => {
     const [sports] = useSports();
-    // console.log(sports);
-    const popularItems =sports.sort((a,b)=> b.totalStudent - a.totalStudent);
-    
+    const approvedClasses = sports.filter((item)=>item.status === "approved");
+    const popularItems = approvedClasses.sort((a,b)=> b.students - a.students);
     const popular = popularItems.slice(0,6)
-    
     return (
         <div>
             <Title headers="Popular Classes"></Title>

@@ -16,7 +16,6 @@ const UpdateClasses = () => {
   const location = useLocation();
   const item = location?.state;
   const id = item?._id;
-  console.log(item);
   const navigate = useNavigate();
 
   const {
@@ -37,20 +36,15 @@ const UpdateClasses = () => {
     })
       .then((res) => res.json())
       .then((imgResponse) => {
-        console.log(imgResponse);
         if (imgResponse.success) {
           const imgURL = imgResponse.data.display_url;
-          // console.log(imgURL);
-          console.log(data);
           const updateData = {
             className: data.className,
             classImage: imgURL,
             seats: data.seats,
             price: data.price,
           };
-          console.log(updateData);
-          console.log(id);
-          fetch(`http://localhost:5000/sports/${id}`, {
+          fetch(`https://sport-school-server-tuhinofficial.vercel.app/sports/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updateData),
@@ -58,7 +52,6 @@ const UpdateClasses = () => {
             .then((res) => res.json())
             .then((data) => {
               refetch();
-              console.log(data);
               if (data.modifiedCount > 0) {
                 Swal.fire({
                   icon: "success",

@@ -8,7 +8,7 @@ const useBookmark = ()=>{
     const {data: bookmarks =[] , refetch} = useQuery({
         queryKey: ['bookmark' , user?.email],
         queryFn : async ()=> {
-            const res = await fetch(`http://localhost:5000/userbookmarks?email=${user?.email}`);
+            const res = await fetch(`https://sport-school-server-tuhinofficial.vercel.app/userbookmarks?email=${user?.email}`);
             return res.json();
         },
     })

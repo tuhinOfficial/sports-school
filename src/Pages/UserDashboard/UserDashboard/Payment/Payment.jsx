@@ -10,7 +10,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_token)
 const Payment = () => {
     const location = useLocation();
     const item = location.state;
-    console.log(item);
     
     return (
         <div>

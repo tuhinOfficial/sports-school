@@ -29,11 +29,8 @@ const AddClass = () => {
     })
       .then((res) => res.json())
       .then((imgResponse) => {
-        console.log(imgResponse);
         if (imgResponse.success) {
           const imgURL = imgResponse.data.display_url;
-          // console.log(imgURL);
-          console.log(data);
           const newItem = {
             className: data.className,
             classImage: imgURL,
@@ -43,8 +40,7 @@ const AddClass = () => {
             price: data.price,
             students:0
           };
-          console.log(newItem);
-          fetch("http://localhost:5000/sports", {
+          fetch("https://sport-school-server-tuhinofficial.vercel.app/sports", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newItem),
@@ -52,7 +48,6 @@ const AddClass = () => {
             .then((res) => res.json())
             .then((data) => {
               refetch();
-              console.log(data);
               if (data.insertedId) {
                 Swal.fire({
                   icon: "success",

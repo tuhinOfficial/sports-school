@@ -16,12 +16,11 @@ const GoogleLogin = () => {
     googleLogin()
       .then((result) => {
         const user = result.user;
-        console.log(user.displayName);
         const newUser = {
           name: user.displayName,
           email: user.email,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://sport-school-server-tuhinofficial.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -29,11 +28,10 @@ const GoogleLogin = () => {
           body: JSON.stringify(newUser),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
+          .then((data) => {});
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 

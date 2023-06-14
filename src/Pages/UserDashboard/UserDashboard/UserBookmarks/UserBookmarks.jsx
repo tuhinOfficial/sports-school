@@ -17,10 +17,8 @@ const TABLE_HEAD = [
 
 const UserBookmarks = () => {
   const [bookmarks, refetch] = useBookmark();
-  console.log(bookmarks);
 
   const deleteHandler = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "Do You Want to Delete",
@@ -31,7 +29,7 @@ const UserBookmarks = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/userbookmarks/${id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/userbookmarks/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",
@@ -39,7 +37,6 @@ const UserBookmarks = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.deletedCount > 0) {
               refetch();
               Swal.fire(

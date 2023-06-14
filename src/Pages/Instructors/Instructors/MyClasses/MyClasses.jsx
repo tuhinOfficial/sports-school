@@ -30,7 +30,6 @@ const MyClasses = () => {
 
   const [myClass, refetch] = useMyClass();
 
-  console.log(myClass);
 
   const deleteHandler = (id) => {
     Swal.fire({
@@ -43,7 +42,7 @@ const MyClasses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/sports/${id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/sports/${id}`, {
           method: "Delete",
         })
           .then((res) => res.json())
@@ -72,7 +71,7 @@ const MyClasses = () => {
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal leading-none opacity-70"
+                      className="font-normal leading-none opacity-70 text-center"
                     >
                       {head}
                     </Typography>
@@ -102,7 +101,7 @@ const MyClasses = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
                         {item.className}
                       </Typography>
@@ -111,7 +110,7 @@ const MyClasses = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
                         {item.instructorName}
                       </Typography>
@@ -120,7 +119,7 @@ const MyClasses = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
                         {item.instructorEmail}
                       </Typography>
@@ -130,6 +129,7 @@ const MyClasses = () => {
                         <Chip
                           size="sm"
                           variant="ghost"
+                          className="text-center"
                           value={item.status ? item.status : "pending"}
                           color={
                             item.status === "approved"
@@ -145,7 +145,7 @@ const MyClasses = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
                         Added Soon
                       </Typography>
@@ -154,9 +154,9 @@ const MyClasses = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
-                        Added Soon
+                        {item?.students}
                       </Typography>
                     </td>
                     <td className={classes}>

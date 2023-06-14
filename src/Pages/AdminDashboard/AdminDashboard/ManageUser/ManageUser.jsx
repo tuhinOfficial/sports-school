@@ -7,7 +7,6 @@ const TABLE_HEAD = ["Name", "Email", "Role", "Action"];
 
 const ManageUser = () => {
   const [users, refetch] = useUsers();
-  console.log(users);
 
   const makeInstructor = (user) => {
     Swal.fire({
@@ -20,13 +19,12 @@ const ManageUser = () => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/user/instructor/${user?._id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/user/instructor/${user?._id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())
           .then((data) => {
             refetch();
-            console.log(data.modifiedCount);
             if (data.modifiedCount) {
               Swal.fire("SuccessFully Instructor", "success");
             }
@@ -46,13 +44,12 @@ const ManageUser = () => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/user/admin/${user?._id}`, {
+        fetch(`https://sport-school-server-tuhinofficial.vercel.app/user/admin/${user?._id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())
           .then((data) => {
             refetch();
-            console.log(data.modifiedCount);
             if (data.modifiedCount) {
               Swal.fire("Successfully Admin","success");
             }

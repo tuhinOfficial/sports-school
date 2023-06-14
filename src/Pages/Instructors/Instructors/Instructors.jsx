@@ -8,7 +8,6 @@ import useUsers from "../../../Hooks/useUsers";
 const Instructors = () => {
   const [users] = useUsers();
   const instructors = users.filter((user)=>user.role === "instructor")
-  console.log(instructors);
 
   const [search, setSearch] = React.useState("");
   const onChange = ({ target }) => setSearch(target.value);

@@ -22,7 +22,6 @@ import { AuthContext } from "../../Prividers/AuthProvider";
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
   const { user, logOut } = useContext(AuthContext);
-  // console.log(user?.photoURL);
 
   const [openMenu, setOpenMenu] = React.useState(false);
 
@@ -40,8 +39,8 @@ const Navigation = () => {
 
   const logOutHandler = () => {
     logOut()
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+      .then((result) => {})
+      .catch((err) => {});
   };
 
   const navList = (
@@ -114,51 +113,61 @@ const Navigation = () => {
               </Button>
             </Link>
           ) : (
-            <Menu open={openMenu} handler={setOpenMenu}>
-              <MenuHandler>
-                <Button
+            <div className="hidden lg:block">
+              <Menu open={openMenu} handler={setOpenMenu}>
+                <MenuHandler>
+                  <Button
+                    {...triggers}
+                    variant="text"
+                    className="flex items-center px-0 py-0 gap-2 text-base font-normal capitalize tracking-normal border-transparent outline-none"
+                  >
+                    <Avatar src={user?.photoURL} alt="img" />
+                    <ChevronDownIcon
+                      strokeWidth={2.5}
+                      className={`h-3.5 w-3.5 transition-transform ${
+                        openMenu ? "rotate-180" : ""
+                      }`}
+                    />
+                  </Button>
+                </MenuHandler>
+                <MenuList
                   {...triggers}
-                  variant="text"
-                  className="flex items-center px-0 py-0 gap-2 text-base font-normal capitalize tracking-normal border-transparent outline-none"
+                  className="hidden w-[12rem] gap-3 overflow-visible lg:grid "
                 >
-                  <Avatar src={user?.photoURL} alt="img" />
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`h-3.5 w-3.5 transition-transform ${
-                      openMenu ? "rotate-180" : ""
-                    }`}
-                  />
-                </Button>
-              </MenuHandler>
-              <MenuList
-                {...triggers}
-                className="hidden w-[12rem] gap-3 overflow-visible lg:grid "
-              >
-                <ul className="col-span-4 flex w-full flex-col gap-1 border-none outline-none">
-                  <MenuItem>
-                    <Typography variant="h6" color="blue-gray" className="mb-1">
-                      Profile
-                    </Typography>
-                  </MenuItem>
-                  <Link to="/dashboard">
+                  <ul className="col-span-4 flex w-full flex-col gap-1 border-none outline-none">
                     <MenuItem>
                       <Typography
                         variant="h6"
                         color="blue-gray"
                         className="mb-1"
                       >
-                        Dashboard
+                        Profile
                       </Typography>
                     </MenuItem>
-                  </Link>
-                  <MenuItem onClick={logOutHandler}>
-                    <Typography variant="h6" color="blue-gray" className="mb-1">
-                      Logout
-                    </Typography>
-                  </MenuItem>
-                </ul>
-              </MenuList>
-            </Menu>
+                    <Link to="/dashboard">
+                      <MenuItem>
+                        <Typography
+                          variant="h6"
+                          color="blue-gray"
+                          className="mb-1"
+                        >
+                          Dashboard
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                    <MenuItem onClick={logOutHandler}>
+                      <Typography
+                        variant="h6"
+                        color="blue-gray"
+                        className="mb-1"
+                      >
+                        Logout
+                      </Typography>
+                    </MenuItem>
+                  </ul>
+                </MenuList>
+              </Menu>
+            </div>
           )}
 
           <IconButton
@@ -203,7 +212,23 @@ const Navigation = () => {
           <div className="container mx-auto">
             {navList}
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
-              <Link to="/login">Login</Link>
+              {user ? (
+                <div>
+                  <Link to="/dashboard">Dashboard</Link>
+                  <Button
+                    onClick={logOutHandler}
+                    variant="gradient"
+                    color="red"
+                    size="sm"
+                    fullWidth
+                    className="mb-2"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/login">Login</Link>
+              )}
             </Button>
           </div>
         </Collapse>

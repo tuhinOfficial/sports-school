@@ -9,7 +9,6 @@ const TABLE_HEAD = ["Name", "Email", "Price", "Transaction ID",];
 const UserEnrolled = () => {
 
   const [payments] = usePayment();
-  console.log(payments);
 
   return (
     <div>
